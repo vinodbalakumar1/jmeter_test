@@ -1,0 +1,21 @@
+Jmeter command sample:
+
+./jmeter -n -t /home/dd1/jmeter.jmx -l /home/dd2/test.csv 
+
+
+syntax :
+
+./jmeter -n -t <.jmx file name> -l <output file name>
+
+
+
+
+where we run it !
+
+ /home/apache-jmeter-5.1.1/bin/jmeter -n -t /home/source_file/filename.jmx -l /home/destination_file/test_ressult.csv
+ 
+ 
+ 
+ in case we passsing dynamic values :
+ 
+ /path/test.cssv
