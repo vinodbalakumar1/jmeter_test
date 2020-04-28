@@ -39,7 +39,7 @@
                      </elementProp>
                   </collectionProp>
                </elementProp>
-               <stringProp name="HTTPSampler.domain">soi-np-east.ebiz.verizon.com</stringProp>
+               <stringProp name="HTTPSampler.domain">localhost:8080</stringProp>
                <stringProp name="HTTPSampler.port" />
                <stringProp name="HTTPSampler.protocol">https</stringProp>
                <stringProp name="HTTPSampler.contentEncoding" />
