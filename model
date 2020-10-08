@@ -1,0 +1,263 @@
+package com.myjavablog.model;
+
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
+@Entity
+@Table(name = "DEALER")
+public class Dealer implements Serializable {
+
+	
+	@Id
+	@Column(name="DEALER_ID")
+	private String dealerUsrId;
+	
+	// this need to map tab 2
+	
+	@OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "USER_GMID")
+	private LccsUsers lccsUser;
+	
+	
+	// this need to map tab 3
+	@ManyToOne( fetch = FetchType.EAGER)
+	@JoinColumn(name = "SITE_CODE", nullable = false)
+	private GmDealerData dealerCode;
+
+	public LccsUsers getLccsUser() {
+		return lccsUser;
+	}
+
+	public void setLccsUser(LccsUsers lccsUser) {
+		this.lccsUser = lccsUser;
+	}
+
+	public String getDealerUsrId() {
+		return dealerUsrId;
+	}
+
+	public void setDealerUsrId(String dealerUsrId) {
+		this.dealerUsrId = dealerUsrId;
+	}
+
+	public GmDealerData getDealerCode() {
+		return dealerCode;
+	}
+
+	public void setDealerCode(GmDealerData dealerCode) {
+		this.dealerCode = dealerCode;
+	}
+
+	
+	
+}
+
+
+
+
+package com.myjavablog.model;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+//  table 3
+@Entity
+@Table(name = "GM_DEALER_DATA")
+public class GmDealerData implements Serializable{
+	
+	@Id
+	@Column(name="SITE_CODE")
+	private String siteCode;
+	
+	@Column(name="BAC")
+	private String bac;
+	
+	@Column(name="BFC")
+	private String bfc;
+	
+	@Column(name="SSC")
+	private String ssc;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "dealerCode", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<Dealer> dealer;
+
+	public String getSiteCode() {
+		return siteCode;
+	}
+
+	public void setSiteCode(String siteCode) {
+		this.siteCode = siteCode;
+	}
+
+	public String getBac() {
+		return bac;
+	}
+
+	public void setBac(String bac) {
+		this.bac = bac;
+	}
+
+	public String getBfc() {
+		return bfc;
+	}
+
+	public void setBfc(String bfc) {
+		this.bfc = bfc;
+	}
+
+	public String getSsc() {
+		return ssc;
+	}
+
+	public void setSsc(String ssc) {
+		this.ssc = ssc;
+	}
+
+	public List<Dealer> getDealer() {
+		return dealer;
+	}
+
+	public void setDealer(List<Dealer> dealer) {
+		this.dealer = dealer;
+	}
+	
+	
+
+}
+
+
+
+
+
+package com.myjavablog.model;
+
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
+// tab 2
+
+@Entity
+@Table(name = "LCCS_USERS")
+public class LccsUsers implements Serializable{
+	
+	@Id
+	@Column(name="USER_GMID",nullable=false,unique=true)
+	private String userGmid;
+	
+	@Column(name="NAME")
+	private String name;
+	
+	
+	@Column(name="EMAIL_ID")
+	private String emailId;
+	
+	@Column(name="IS_ACTIVE")
+	private String isActive;
+	
+	
+	@Column(name="USER_GMIN")
+	private String userGmin;
+	
+	@JsonIgnore
+	@OneToOne(mappedBy = "lccsUser")
+	private Dealer dealer;
+
+
+	public String getUserGmid() {
+		return userGmid;
+	}
+
+
+	public void setUserGmid(String userGmid) {
+		this.userGmid = userGmid;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public String getEmailId() {
+		return emailId;
+	}
+
+
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public String getIsActive() {
+		return isActive;
+	}
+
+
+	public void setIsActive(String isActive) {
+		this.isActive = isActive;
+	}
+
+
+	public String getUserGmin() {
+		return userGmin;
+	}
+
+
+	public void setUserGmin(String userGmin) {
+		this.userGmin = userGmin;
+	}
+
+
+	public Dealer getDealer() {
+		return dealer;
+	}
+
+
+	public void setDealer(Dealer dealer) {
+		this.dealer = dealer;
+	}
+	
+	
+	
+
+}
