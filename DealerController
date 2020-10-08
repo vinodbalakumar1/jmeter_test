@@ -1,0 +1,54 @@
+package com.myjavablog.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.myjavablog.dao.DealerRepo;
+import com.myjavablog.dao.GmDealerDataRepo;
+import com.myjavablog.dao.LccsUserRepo;
+import com.myjavablog.model.Dealer;
+import com.myjavablog.model.GmDealerData;
+import com.myjavablog.model.LccsUsers;
+
+
+@RestController
+public class DealerController {
+	
+	@Autowired
+	DealerRepo repo;
+	
+	@Autowired
+	GmDealerDataRepo gmrepo;
+	
+	@Autowired
+	LccsUserRepo lccsRepo;
+
+	 @PostMapping("/saveDealer")
+	    public Dealer saveDepartment(@RequestBody Dealer department){
+		 GmDealerData gmDealer = gmrepo.save(department.getDealerCode());
+		 LccsUsers user = lccsRepo.save(department.getLccsUser());
+		 Dealer de = repo.save(department);
+	        return de;
+	    }
+	 
+	 
+	  @RequestMapping(value = "/dealerList", method = RequestMethod.GET)
+	    public @ResponseBody List<Dealer> getDepartments(){
+	        return repo.findAll();
+	    }
+	  
+	  @RequestMapping(value = "/dealer/{id}", method = RequestMethod.GET)
+	    public @ResponseBody Dealer getDepartments(@PathVariable("id") String id){
+		  System.out.println("dealer :"+id);
+	        return repo.findBydealerUsrId(id);
+	    }
+	
+}
