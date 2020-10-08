@@ -1,0 +1,42 @@
+package com.myjavablog.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.myjavablog.model.Dealer;
+
+// table one repo
+
+public interface DealerRepo  extends JpaRepository<Dealer, String>{
+
+	Dealer findBydealerUsrId(String id);
+
+}
+
+
+package com.myjavablog.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.myjavablog.model.GmDealerData;
+
+
+// table 3 repo
+
+
+public interface GmDealerDataRepo extends JpaRepository<GmDealerData, String>{
+
+}
+
+
+package com.myjavablog.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.myjavablog.model.Dealer;
+import com.myjavablog.model.LccsUsers;
+
+
+// table 2 repo
+public interface LccsUserRepo extends JpaRepository<LccsUsers, String>{
+
+}
